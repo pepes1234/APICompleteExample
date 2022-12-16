@@ -47,17 +47,14 @@ public class NoteController : ControllerBase
         try
         {
             var query = search == null ? context.Anotacaos :
-                (context.Anotacaos
-                .Where(a => a.Title.Contains(search))
-                .Where(a => a.Conteudo.Contains(search))).Distinct();
-            
+                    context.Anotacaos
+                    .Where(a => a.Title.Contains(search) || a.Conteudo.Contains(search));
 
-
-            var pages = await query
+            var pages = query
                 .Skip(pageNumber - 1)
                 .Take(notesPerPage)
                 .ToListAsync();
-            
+
             return Ok(pages);
         }
         catch
@@ -66,25 +63,6 @@ public class NoteController : ControllerBase
         }
         
 
-    }
-    [HttpGet("test")]
-    public IActionResult test()
-    {
-        ExemploContext context = new ExemploContext();
-        string search = "programacao";
-        int pageNumber = 1;
-        int notesPerPage = 100;
-
-        var lista = new List<string>();
-        var query = search == null ? context.Anotacaos :
-                context.Anotacaos
-                .Where(a => a.Title.Contains(search) || a.Conteudo.Contains(search));
-
-        var pages = query
-            .Skip(pageNumber - 1)
-            .Take(notesPerPage)
-            .ToList();
-        return Ok(pages);
     }
     //select Anotacao.Conteudo, Anotacao.Title from Anotacao where Anotacao.Conteudo = 'programacao' or Anotacao.Title = 'programacao'
 }
