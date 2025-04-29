@@ -1,171 +1,212 @@
-# 🌐 APICompleteExample
+# APICompleteExample
 
-<p align="center">
-  <img src="https://img.shields.io/badge/.NET-7.0-blue" alt=".NET 7.0" />
-  <img src="https://img.shields.io/badge/ASP.NET_Core-Web_API-informational" alt="ASP.NET Core Web API" />
-  <img src="https://img.shields.io/badge/Blazor-Server-lightgrey" alt="Blazor Server" />
-  <img src="https://img.shields.io/badge/Entity_Framework-Core-success" alt="EF Core" />
-  <img src="https://img.shields.io/badge/PowerShell-Script-yellow" alt="PowerShell" />
-  <img src="https://img.shields.io/badge/License-MIT-brightgreen" alt="MIT License" />
-</p>
+![.NET 7.0](https://img.shields.io/badge/.NET-7.0-blue) ![ASP.NET Core Web API](https://img.shields.io/badge/ASP.NET%20Core-Web%20API-green) ![EF Core](https://img.shields.io/badge/Entity%20Framework-Core-yellow) ![PowerShell](https://img.shields.io/badge/PowerShell-Script-blue) ![MIT License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-> Um exemplo completo de aplicação com **ASP.NET Core Web API** no backend e **Blazor Server** no frontend, incluindo um script PowerShell para geração automática de modelos a partir de um banco de dados SQL Server.
+> Um exemplo completo de Web API em ASP.NET Core com Entity Framework Core, incluindo script SQL para criação de banco e PowerShell para geração de modelos C#.
 
 ---
 
-## 📑 Sumário
+## 📚 Sumário
 
-- [🚀 Sobre o Projeto](#🚀-sobre-o-projeto)
-- [⚙️ Tecnologias](#⚙️-tecnologias)
-- [📋 Pré-requisitos](#📋-pré-requisitos)
-- [🏗️ Instalação](#🏗️-instalação)
-- [🔧 Configuração](#🔧-configuração)
-- [▶️ Uso](#▶️-uso)
-- [📂 Estrutura do Projeto](#📂-estrutura-do-projeto)
-- [🤝 Contribuindo](#🤝-contribuindo)
-- [📄 Licença](#📄-licença)
-- [👤 Autor](#👤-autor)
-
----
-
-## 🚀 Sobre o Projeto
-
-**APICompleteExample** é um template full-stack em .NET que demonstra como:
-
-1. Construir uma **Web API** com **ASP.NET Core**  
-2. Consumir essa API em um **frontend Blazor Server**  
-3. Gerar automaticamente classes de modelo C# a partir de um banco **SQL Server** via PowerShell e Entity Framework Core  
-
-Use este projeto como ponto de partida para suas aplicações corporativas ou estudos de integração backend-frontend em .NET.
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Tecnologias](#tecnologias)
+- [Pré-requisitos](#pré-requisitos)
+- [Instalação](#instalação)
+- [Configuração](#configuração)
+- [Geração de Models](#geração-de-models)
+- [Uso / Execução](#uso--execução)
+- [Endpoints da API](#endpoints-da-api)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Contribuindo](#contribuindo)
+- [Licença](#licença)
+- [Autor](#autor)
 
 ---
 
-## ⚙️ Tecnologias
+## 💡 Sobre o Projeto
 
-| Camada           | Tecnologia                   |
-|------------------|------------------------------|
-| 🏷️ Backend       | ASP.NET Core Web API         |
-| 🛠️ ORM           | Entity Framework Core        |
-| 🌐 Frontend      | Blazor Server                |
-| 💾 Banco de Dados| SQL Server                   |
-| 📜 Script        | PowerShell (`createmodel.ps1`)|
+Este projeto demonstra como:
 
----
-
-## 📋 Pré-requisitos
-
-- ✅ **.NET 7.0 SDK**  
-- ✅ **SQL Server** (local ou remoto)  
-- ✅ **PowerShell** (para executar o script de geração de modelos)  
+- Construir uma **Web API** RESTful com **ASP.NET Core 7.0**
+- Mapear entidades e migrations com **Entity Framework Core**
+- Gerar automaticamente classes de modelo a partir de um banco **SQL Server** via PowerShell
+- Implementar registro e login de usuários com geração e validação de **tokens** simples (sem JWT)
 
 ---
 
-## 🏗️ Instalação
+## 🚀 Tecnologias
+
+| Camada    | Tecnologia                    |
+|-----------|-------------------------------|
+| Backend   | ASP.NET Core Web API          |
+| ORM       | Entity Framework Core         |
+| Banco     | SQL Server                    |
+| Scripting | PowerShell (`createmodel.ps1`)|
+
+---
+
+## ✅ Pré-requisitos
+
+- [.NET 7.0 SDK](https://dotnet.microsoft.com/download)
+- SQL Server (instância local ou hospedada)
+- PowerShell 5.1+
+
+---
+
+## 🛠️ Instalação
 
 ```bash
 # 1. Clone o repositório
 git clone https://github.com/pepes1234/APICompleteExample.git
 cd APICompleteExample
+
+# 2. (Opcional) Abra no VS Code / Visual Studio
+code .
 ```
 
 ---
 
-## 🔧 Configuração
+## ⚙️ Configuração
 
-1. **String de conexão**  
-   Edite `backend/appsettings.json` (ou configure via variáveis de ambiente):
+### Banco de Dados
 
-   ```json
-   {
-     "ConnectionStrings": {
-       "DefaultConnection": "Server=SEU_SERVIDOR;Database=SEU_BANCO;User Id=usuario;Password=senha;"
-     }
-   }
-   ```
+- Execute o script SQL `backend/script.sql` no SQL Server para criar o banco e as tabelas.
 
-2. **Gerar modelos**  
-   No diretório `backend`, execute:
+```sql
+USE master;
+GO
+IF EXISTS (SELECT * FROM sys.databases WHERE name = 'Exemplo')
+    DROP DATABASE Exemplo;
+GO
+CREATE DATABASE Exemplo;
+GO
+USE Exemplo;
+GO
+-- Criação de tabelas...
+```
 
-   ```powershell
-   .\createmodel.ps1 \
-     -connectionString "Server=SEU_SERVIDOR;Database=SEU_BANCO;User Id=usuario;Password=senha;" \
-     -outputFolder "Models"
-   ```
+### String de Conexão
 
-   Isso criará classes C# em `backend/Models/` correspondentes às tabelas do seu banco.
+Edite o arquivo `backend/appsettings.json`:
+
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=SEU_SERVIDOR;Database=Exemplo;User Id=usuario;Password=senha;"
+  }
+}
+```
 
 ---
 
-## ▶️ Uso
+## 🧱 Geração de Models
 
-### 🖥️ Backend (Web API)
+Execute o script PowerShell `createmodel.ps1` para gerar os modelos a partir do banco:
+
+```powershell
+.\createmodel.ps1 `
+  -connectionString "Server=SEU_SERVIDOR;Database=Exemplo;User Id=usuario;Password=senha;" `
+  -outputFolder "Model"
+```
+
+---
+
+## ▶️ Uso / Execução
 
 ```bash
 cd backend
 dotnet run
 ```
 
-- Acesse a API em `https://localhost:5001` ou `http://localhost:5000`.
+A API estará disponível em:
 
-### 🌐 Frontend (Blazor Server)
-
-```bash
-cd frontend
-dotnet run
-```
-
-- Abra o navegador em `https://localhost:6001` (porta exibida no terminal).
+- `https://localhost:5001`
+- `http://localhost:5000`
 
 ---
 
-## 📂 Estrutura do Projeto
+## 📡 Endpoints da API
 
-```plaintext
+### 🔐 Usuário
+
+- **Registrar novo usuário**
+  - `GET /User/register/{Nome}/{Email}/{Senha}`
+  - Exemplo:
+    ```
+    /User/register/JoaoSilva/joao@email.com/MinhaSenha123
+    ```
+
+- **Login**
+  - `GET /User/Login`
+  - Corpo JSON:
+    ```json
+    {
+      "Nome": "JoaoSilva",
+      "Senha": "MinhaSenha123"
+    }
+    ```
+  - Retorna token como texto puro.
+
+---
+
+### 📝 Anotações
+
+- **Salvar anotação**
+  - `GET /Note/save`
+  - Query ou JSON:
+    ```json
+    {
+      "Title": "Minha Nota",
+      "Conteudo": "Conteúdo aqui",
+      "UsuarioId": 1
+    }
+    ```
+
+- **Buscar anotações com paginação**
+  - `GET /Note/getNotes/{pageNumber}-{notesPerPage}-{search?}`
+  - Exemplo:
+    ```
+    /Note/getNotes/1-10-teste
+    ```
+
+---
+
+## 🗂️ Estrutura do Projeto
+
+```
 APICompleteExample/
-├── backend/                  
-│   ├── Controllers/          # Endpoints da Web API
-│   ├── Data/                 # DbContext e Migrations
-│   ├── Models/               # Classes geradas pelo script
-│   ├── createmodel.ps1       # Script PowerShell de geração de modelos
-│   ├── Program.cs            
-│   └── appsettings.json      # Strings de conexão
-├── frontend/                 
-│   ├── Pages/                # Páginas Blazor
-│   ├── Shared/               # Componentes compartilhados
-│   ├── Program.cs            
-│   └── appsettings.json      # Configuração de serviço/API
-├── .gitignore                 
-├── LICENSE                    
-└── README.md                  
+├── backend/
+│   ├── Controllers/
+│   ├── Model/
+│   ├── Services/
+│   ├── createmodel.ps1
+│   ├── script.sql
+│   ├── appsettings.json
+│   └── backend.csproj
+├── .gitignore
+├── LICENSE
+└── README.md
 ```
 
 ---
 
 ## 🤝 Contribuindo
 
-1. 🍴 **Fork** este repositório  
-2. 🏷️ Crie uma branch:
-   ```bash
-git checkout -b feature/sua-feature
-   ```  
-3. 💾 Faça commit das mudanças:
-   ```bash
-git commit -m "✨ Descreva sua feature"
-   ```  
-4. 📤 Envie para o repositório remoto:
-   ```bash
-git push origin feature/sua-feature
-   ```  
-5. 📬 Abra um Pull Request  
+1. Faça um fork
+2. Crie uma nova branch: `git checkout -b feature/minha-feature`
+3. Commit suas alterações: `git commit -m "feat: minha nova feature"`
+4. Push para a branch: `git push origin feature/minha-feature`
+5. Crie um Pull Request
 
 ---
 
 ## 📄 Licença
 
-Este projeto está sob a **MIT License**. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
 
 ## 👤 Autor
 
-Desenvolvido com ❤️ por [@pepes1234](https://github.com/pepes1234)
+Feito com ❤️ por [@pepes1234](https://github.com/pepes1234)
+
