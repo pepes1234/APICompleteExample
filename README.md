@@ -114,6 +114,7 @@ Execute o script PowerShell `createmodel.ps1` para gerar os modelos a partir do 
 ## ▶️ Uso / Execução
 
 ```bash
+./createmodel.ps1 {String de conexão do seu banco} {Nome do banco(Exemplo)}
 cd backend
 dotnet run
 ```
@@ -189,24 +190,3 @@ APICompleteExample/
 ```
 
 ---
-
-## 🤝 Contribuindo
-
-1. Faça um fork
-2. Crie uma nova branch: `git checkout -b feature/minha-feature`
-3. Commit suas alterações: `git commit -m "feat: minha nova feature"`
-4. Push para a branch: `git push origin feature/minha-feature`
-5. Crie um Pull Request
-
----
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
----
-
-## 👤 Autor
-
-Feito com ❤️ por [@pepes1234](https://github.com/pepes1234)
-
