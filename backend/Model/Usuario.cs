@@ -15,5 +15,7 @@ public partial class Usuario
 
     public virtual ICollection<Anotacao> Anotacaos { get; } = new List<Anotacao>();
 
+    public virtual ICollection<Nota> Nota { get; } = new List<Nota>();
+
     public virtual ICollection<Token> Tokens { get; } = new List<Token>();
 }
