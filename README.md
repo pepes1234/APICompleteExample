@@ -9,58 +9,61 @@
   <img src="https://img.shields.io/badge/License-MIT-brightgreen" alt="MIT License" />
 </p>
 
-> Um exemplo completo de aplicação com **ASP.NET Core Web API** no backend e **Blazor Server** no frontend, incluindo script de geração de modelos a partir de um banco de dados SQL Server.
+> Um exemplo completo de aplicação com **ASP.NET Core Web API** no backend e **Blazor Server** no frontend, incluindo um script PowerShell para geração automática de modelos a partir de um banco de dados SQL Server.
 
 ---
 
 ## 📑 Sumário
 
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Tecnologias](#tecnologias)
-- [Pré-requisitos](#pré-requisitos)
-- [Instalação](#instalação)
-- [Configuração](#configuração)
-- [Uso](#uso)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Contribuindo](#contribuindo)
-- [Licença](#licença)
-- [Autor](#autor)
+- [🚀 Sobre o Projeto](#🚀-sobre-o-projeto)
+- [⚙️ Tecnologias](#⚙️-tecnologias)
+- [📋 Pré-requisitos](#📋-pré-requisitos)
+- [🏗️ Instalação](#🏗️-instalação)
+- [🔧 Configuração](#🔧-configuração)
+- [▶️ Uso](#▶️-uso)
+- [📂 Estrutura do Projeto](#📂-estrutura-do-projeto)
+- [🤝 Contribuindo](#🤝-contribuindo)
+- [📄 Licença](#📄-licença)
+- [👤 Autor](#👤-autor)
 
 ---
 
-## 💡 Sobre o Projeto
+## 🚀 Sobre o Projeto
 
-O **APICompleteExample** é uma aplicação demonstrativa que mostra como criar uma **Web API** robusta com **ASP.NET Core** e consumir essa API em um **frontend Blazor Server**. Além disso, inclui um script PowerShell (`createmodel.ps1`) para gerar classes de modelo a partir das tabelas de um banco de dados **SQL Server**, facilitando o uso do **Entity Framework Core**.
+**APICompleteExample** é um template full-stack em .NET que demonstra como:
 
-Use este template para acelerar o desenvolvimento de projetos full-stack em .NET, seguir boas práticas de organização de código e aprender como integrar backend e frontend de forma coerente.
+1. Construir uma **Web API** com **ASP.NET Core**  
+2. Consumir essa API em um **frontend Blazor Server**  
+3. Gerar automaticamente classes de modelo C# a partir de um banco **SQL Server** via PowerShell e Entity Framework Core  
+
+Use este projeto como ponto de partida para suas aplicações corporativas ou estudos de integração backend-frontend em .NET.
 
 ---
 
 ## ⚙️ Tecnologias
 
-| Camada     | Tecnologia                  |
-|------------|-----------------------------|
-| Backend    | ASP.NET Core Web API        |
-| ORM        | Entity Framework Core       |
-| Frontend   | Blazor Server               |
-| Banco de Dados | SQL Server              |
-| Script     | PowerShell (`.ps1`)         |
+| Camada           | Tecnologia                   |
+|------------------|------------------------------|
+| 🏷️ Backend       | ASP.NET Core Web API         |
+| 🛠️ ORM           | Entity Framework Core        |
+| 🌐 Frontend      | Blazor Server                |
+| 💾 Banco de Dados| SQL Server                   |
+| 📜 Script        | PowerShell (`createmodel.ps1`)|
 
 ---
 
 ## 📋 Pré-requisitos
 
-1. **.NET 7.0 SDK** instalado
-2. **SQL Server** (local ou remoto) disponível
-3. **PowerShell** (para executar o script de geração de modelos)
+- ✅ **.NET 7.0 SDK**  
+- ✅ **SQL Server** (local ou remoto)  
+- ✅ **PowerShell** (para executar o script de geração de modelos)  
 
 ---
 
 ## 🏗️ Instalação
 
-Clone o repositório e navegue até a pasta raiz:
-
 ```bash
+# 1. Clone o repositório
 git clone https://github.com/pepes1234/APICompleteExample.git
 cd APICompleteExample
 ```
@@ -69,24 +72,24 @@ cd APICompleteExample
 
 ## 🔧 Configuração
 
-1. **Configurar string de conexão**
-
-   Edite o arquivo `backend/appsettings.json` (ou use variáveis de ambiente) para apontar para seu servidor SQL Server:
+1. **String de conexão**  
+   Edite `backend/appsettings.json` (ou configure via variáveis de ambiente):
 
    ```json
    {
      "ConnectionStrings": {
-       "DefaultConnection": "Server=MEU_SERVIDOR;Database=MeuBanco;User Id=usuario;Password=senha;"
+       "DefaultConnection": "Server=SEU_SERVIDOR;Database=SEU_BANCO;User Id=usuario;Password=senha;"
      }
    }
    ```
 
-2. **Gerar modelos a partir do banco**
-
-   No diretório `backend`, execute o script PowerShell `createmodel.ps1`:
+2. **Gerar modelos**  
+   No diretório `backend`, execute:
 
    ```powershell
-   .\createmodel.ps1 -connectionString "Server=MEU_SERVIDOR;Database=MeuBanco;User Id=usuario;Password=senha;" -outputFolder "Models"
+   .\createmodel.ps1 \
+     -connectionString "Server=SEU_SERVIDOR;Database=SEU_BANCO;User Id=usuario;Password=senha;" \
+     -outputFolder "Models"
    ```
 
    Isso criará classes C# em `backend/Models/` correspondentes às tabelas do seu banco.
@@ -95,29 +98,23 @@ cd APICompleteExample
 
 ## ▶️ Uso
 
-### Backend (Web API)
+### 🖥️ Backend (Web API)
 
-1. Abra o terminal no diretório `backend`:
-   ```bash
-   cd backend
-   ```
-2. Execute a API:
-   ```bash
-   dotnet run
-   ```
-3. A API ficará disponível em `https://localhost:5001` e `http://localhost:5000`.
+```bash
+cd backend
+dotnet run
+```
 
-### Frontend (Blazor Server)
+- Acesse a API em `https://localhost:5001` ou `http://localhost:5000`.
 
-1. Abra novo terminal no diretório `frontend`:
-   ```bash
-   cd frontend
-   ```
-2. Execute a aplicação Blazor:
-   ```bash
-   dotnet run
-   ```
-3. Acesse `https://localhost:6001` (ou porta indicada) para usar o frontend.
+### 🌐 Frontend (Blazor Server)
+
+```bash
+cd frontend
+dotnet run
+```
+
+- Abra o navegador em `https://localhost:6001` (porta exibida no terminal).
 
 ---
 
@@ -125,33 +122,50 @@ cd APICompleteExample
 
 ```plaintext
 APICompleteExample/
-├── backend/
+├── backend/                  
 │   ├── Controllers/          # Endpoints da Web API
-│   ├── Models/               # Classes de entidade (geradas via script)
-│   ├── Data/                 # DbContext e migrations
+│   ├── Data/                 # DbContext e Migrations
+│   ├── Models/               # Classes geradas pelo script
 │   ├── createmodel.ps1       # Script PowerShell de geração de modelos
-│   ├── Program.cs
-│   └── appsettings.json      # Configurações de conexão
-├── frontend/
+│   ├── Program.cs            
+│   └── appsettings.json      # Strings de conexão
+├── frontend/                 
 │   ├── Pages/                # Páginas Blazor
 │   ├── Shared/               # Componentes compartilhados
-│   ├── Program.cs
-│   └── appsettings.json      # Configurações de rota/serviço
-├── .gitignore
-├── LICENSE
-└── README.md
+│   ├── Program.cs            
+│   └── appsettings.json      # Configuração de serviço/API
+├── .gitignore                 
+├── LICENSE                    
+└── README.md                  
 ```
 
 ---
 
 ## 🤝 Contribuindo
 
-1. Faça um **fork** 🍴
-2. Crie uma **branch**: `feature/minha-feature`
-3. Faça **commit** das alterações: `git commit -m "✨ adiciona minha feature"`
-4. **Push** para a branch: `git push origin feature/minha-feature`
-5. Abra um **Pull Request** 🚀
-
-Por favor, siga o padrão de nomenclatura de branches e boas práticas de commits.
+1. 🍴 **Fork** este repositório  
+2. 🏷️ Crie uma branch:
+   ```bash
+git checkout -b feature/sua-feature
+   ```  
+3. 💾 Faça commit das mudanças:
+   ```bash
+git commit -m "✨ Descreva sua feature"
+   ```  
+4. 📤 Envie para o repositório remoto:
+   ```bash
+git push origin feature/sua-feature
+   ```  
+5. 📬 Abra um Pull Request  
 
 ---
+
+## 📄 Licença
+
+Este projeto está sob a **MIT License**. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
+
+## 👤 Autor
+
+Desenvolvido com ❤️ por [@pepes1234](https://github.com/pepes1234)
